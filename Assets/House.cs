@@ -31,9 +31,8 @@ public partial class TileBuilder
             builder.VertexMatrix =
                 Matrix4x4.Rotate(Quaternion.AngleAxis(i * 180, Vector3.up)) *
                 Matrix4x4.Translate(new(-0.25f, 0.2f, -0.25f)) *
-                Matrix4x4.Scale(new(0.5f, 0.5f, 0f)) *
-                Matrix4x4.Rotate(Quaternion.AngleAxis(90, Vector3.left))
-                ;
+                Matrix4x4.Scale(new(0.5f, 0.5f, 1f)) *
+                Matrix4x4.Rotate(Quaternion.AngleAxis(90, Vector3.left));
             int a = builder.AddVertex(new(0, 0, 0), new(0, 1, 0), new(0, 1));
             int b = builder.AddVertex(new(0.5f, 0, 0.5f), new(0, 1, 0), new(0, 0));
             int c = builder.AddVertex(new(1, 0, 0), new(0, 1, 0), new(1, 0));
