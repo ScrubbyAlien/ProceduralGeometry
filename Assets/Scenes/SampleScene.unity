@@ -208,13 +208,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: 0.37737194, y: -0, z: -0, w: 0.9260618}
+  m_LocalPosition: {x: 1.93, y: 2.69, z: -1.76}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 44.342, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,7 +332,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5821
+  m_ColorTemperature: 5378
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -442,7 +442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &930817072
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -678,6 +678,108 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2019640158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2019640160}
+  - component: {fileID: 2019640159}
+  m_Layer: 0
+  m_Name: Grid
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2019640159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019640158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa10f32490464cf1a7093f94d64b1c2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: {x: 5, y: 5}
+  TilePrefab: {fileID: 9135797777649153346, guid: 6dcc8a50a9e5b4e4eab90c868aeab4e9,
+    type: 3}
+  PropertyNames:
+  - Path
+  - House
+  _cellData:
+  - Properties: 2
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  - Properties: 0
+    JsonData: 
+  _tileData: 
+--- !u!4 &2019640160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019640158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -686,3 +788,4 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 930817073}
+  - {fileID: 2019640160}

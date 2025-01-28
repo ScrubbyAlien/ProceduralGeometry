@@ -11,7 +11,7 @@ public class Piece : MonoBehaviour
     private GridTile tile;
 
     private MeshFilter filter;
-    private MeshRenderer renderer;
+    private MeshRenderer meshRenderer;
     private Mesh mesh;
 
     private void Start()
@@ -33,18 +33,28 @@ public class Piece : MonoBehaviour
         if (tile.GetProperty(MyTile.Path)) state += 1;
         if (tile.GetProperty(MyTile.House)) state += 2;
 
+
+        int[] neighborProperties = new int[8];
+        for (int i = 0; i < 8; i++)
+        {
+            int nstate = 0;
+            if (tile.GetNeighbourProperty(i, MyTile.Path)) nstate += 1;
+            if (tile.GetNeighbourProperty(i, MyTile.House)) nstate += 2;
+            neighborProperties[i] = nstate;
+        }
+        
         tileBuilder.Ground(ref meshBuilder);
         switch (state)
         {
             case 1:
-                // path
+                tileBuilder.Path(ref meshBuilder, in neighborProperties);
+                break;
             case 2:
                 // house
                 tileBuilder.House(ref meshBuilder);
                 break;
             case 3:
                 // path and house
-            default:
                 break;
         }
         meshBuilder.Build(ref mesh);

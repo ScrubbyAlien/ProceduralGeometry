@@ -5,6 +5,7 @@ using UnityEngine;
 
 public partial class TileBuilder
 {
+    
     private static Matrix4x4 translateToCenter = Matrix4x4.Translate(new(-0.5f, 0, -0.5f));
 
     private static Quad Square1x1(ref MeshBuilder builder)
