@@ -34,13 +34,13 @@ public class Piece : MonoBehaviour
         if (tile.GetProperty(MyTile.House)) state += 2;
 
 
-        int[] neighborProperties = new int[8];
-        for (int i = 0; i < 8; i++)
+        int[] neighborProperties = new int[4];
+        for (int i = 0; i < 8; i += 2)
         {
             int nstate = 0;
             if (tile.GetNeighbourProperty(i, MyTile.Path)) nstate += 1;
             if (tile.GetNeighbourProperty(i, MyTile.House)) nstate += 2;
-            neighborProperties[i] = nstate;
+            neighborProperties[i / 2] = nstate;
         }
         
         tileBuilder.Ground(ref meshBuilder);
@@ -66,7 +66,9 @@ public class Piece : MonoBehaviour
         if (_tile.GetProperty(MyTile.Path) && _tile.GetProperty(MyTile.House)) {
             Gizmos.color = Color.black;
         } else if (_tile.GetProperty(MyTile.Path)) {
-            Gizmos.color = Color.red;
+            draw = false;
+            // Gizmos.color = Color.cyan;
+            // Gizmos.DrawSphere(new(0f, 0, 0f), 0.15f);
         } else if (_tile.GetProperty(MyTile.House)) {
             draw = false;
             // Gizmos.color = Color.blue;
