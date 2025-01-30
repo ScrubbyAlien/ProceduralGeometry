@@ -2,8 +2,9 @@ using UnityEngine;
 
 public partial class TileBuilder
 {
-    public void House(ref MeshBuilder builder)
+    public void House(ref MeshBuilder builder, uint tileSeed)
     {
+        builder.OpenVertexGroup("house");
         // walls
         for (int i = 0; i < 4; i++)
         {
@@ -66,5 +67,10 @@ public partial class TileBuilder
 
             
         }
+        builder.CloseVertexGroup();
+
+
+        Unity.Mathematics.Random random = new Unity.Mathematics.Random(tileSeed);
+        builder.ApplyMatrixToGroup(Matrix4x4.Rotate(Quaternion.AngleAxis(random.NextFloat(360f), Vector3.up)), "house");
     }
 }

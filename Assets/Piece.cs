@@ -51,7 +51,8 @@ public class Piece : MonoBehaviour
                 break;
             case 2:
                 // house
-                tileBuilder.House(ref meshBuilder);
+                uint tileSeed = (uint) Mathf.RoundToInt(tile.Id.magnitude * Vector2.Angle(tile.Id, Vector2.left));
+                tileBuilder.House(ref meshBuilder, tileSeed * (tileSeed + 100) * (tileSeed + 300));
                 break;
             case 3:
                 // path and house

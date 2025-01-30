@@ -1,9 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MeshBuilder
 {
     private readonly List<Vector3> vertices = new();
+    private readonly Dictionary<int, string> vertexGroups = new();
+    private string currentVertexGroup = "";
     private readonly List<Vector3> normals = new();
     private readonly List<Vector2> uvs = new();
     private readonly List<int> triangles = new();
@@ -13,6 +17,10 @@ public class MeshBuilder
     
     public int AddVertex(Vector3 position, Vector3 normal, Vector2 uv) {
         int index = vertices.Count;
+        if (currentVertexGroup != "")
+        {
+            vertexGroups.Add(index, currentVertexGroup);
+        }
         vertices.Add(VertexMatrix.MultiplyPoint(position));
         normals.Add(VertexMatrix.MultiplyVector(normal));
         uvs.Add(TextureMatrix.MultiplyPoint(uv));
@@ -53,6 +61,7 @@ public class MeshBuilder
 
     public void Clear()
     {
+        vertexGroups.Clear();
         vertices.Clear();
         normals.Clear();
         uvs.Clear();
@@ -60,8 +69,37 @@ public class MeshBuilder
         VertexMatrix = Matrix4x4.identity;
         TextureMatrix = Matrix4x4.identity;
     }
-    
-    
+
+    public static Matrix4x4 RotateDisplacedAxis(float angle, Vector3 origin, Vector3 axis)
+    {
+        return Matrix4x4.Translate(origin) *
+               Matrix4x4.Rotate(Quaternion.AngleAxis(angle, axis)) *
+               Matrix4x4.Translate(origin).inverse;
+    }
+
+    public void OpenVertexGroup(string groupName)
+    {
+        currentVertexGroup = groupName;
+    }
+
+    public void CloseVertexGroup()
+    {
+        currentVertexGroup = "";
+    }
+
+    public void ApplyMatrixToGroup(Matrix4x4 matrix, string group)
+    {
+        List<int> indices = vertexGroups
+                                .Where(pair => pair.Value == group)
+                                .Select(pair => pair.Key)
+                                .ToList();
+        
+        foreach (int index in indices)
+        {
+            vertices[index] = matrix.MultiplyPoint(vertices[index]);
+            normals[index] = matrix.MultiplyVector(normals[index]);
+        }
+    }
 }
 
 public struct Quad
@@ -76,3 +114,4 @@ public struct Quad
         this.v4 = v4;
     }
 }
+
