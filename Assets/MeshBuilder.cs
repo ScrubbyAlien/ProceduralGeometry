@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class MeshBuilder
@@ -14,8 +15,16 @@ public class MeshBuilder
 
     public Matrix4x4 VertexMatrix = Matrix4x4.identity;
     public Matrix4x4 TextureMatrix = Matrix4x4.identity;
-    
-    public int AddVertex(Vector3 position, Vector3 normal, Vector2 uv) {
+
+    private Vector2 TweakedUV(Vector2 v2, float tweakAmount)
+    {
+        return new Vector2(
+            v2.x > 0.5f ? v2.x - tweakAmount : v2.x + tweakAmount,
+            v2.y > 0.5f ? v2.y - tweakAmount : v2.y + tweakAmount
+            );
+    }
+
+public int AddVertex(Vector3 position, Vector3 normal, Vector2 uv, float tweak = 0) {
         int index = vertices.Count;
         if (currentVertexGroup != "")
         {
@@ -23,7 +32,7 @@ public class MeshBuilder
         }
         vertices.Add(VertexMatrix.MultiplyPoint(position));
         normals.Add(VertexMatrix.MultiplyVector(normal));
-        uvs.Add(TextureMatrix.MultiplyPoint(uv));
+        uvs.Add(TextureMatrix.MultiplyPoint(TweakedUV(uv, tweak * 3f)));
         return index;
     }
 
@@ -35,6 +44,26 @@ public class MeshBuilder
     public void AddQuad(int bottomLeft, int topLeft, int topRight, int bottomRight, bool preserveMatrix = true) {
         AddTriangle(bottomLeft, topLeft, topRight, preserveMatrix);
         AddTriangle(bottomLeft, topRight, bottomRight, preserveMatrix);
+    }
+
+    public void AddDualFacedQuad(int bottomLeft, int topLeft, int topRight, int bottomRight, bool preserveMatrix = true)
+    {
+        Matrix4x4 vm = VertexMatrix;
+        Matrix4x4 tm = TextureMatrix;
+        
+        AddQuad(bottomLeft, topLeft, topRight, bottomRight, false);
+        int a = AddVertex(vertices[bottomLeft], -normals[bottomLeft], uvs[bottomLeft]);
+        int b = AddVertex(vertices[topLeft], -normals[topLeft], uvs[topLeft]);
+        int c = AddVertex(vertices[topRight], -normals[topRight], uvs[topRight]);
+        int d = AddVertex(vertices[bottomRight], -normals[bottomRight], uvs[bottomRight]);
+        AddQuad(d, c, b, a, preserveMatrix);
+
+        if (preserveMatrix)
+        {
+            VertexMatrix = vm;
+            TextureMatrix = tm;
+        }
+        
     }
 
     public void AddTriangle(int first, int second, int third, bool preserveMatrix = true)
@@ -79,6 +108,16 @@ public class MeshBuilder
 
     public void OpenVertexGroup(string groupName)
     {
+        if (vertexGroups.ContainsValue(groupName))
+        {
+            foreach (int key in vertexGroups.Keys.ToArray())
+            {
+                if (vertexGroups[key] == groupName)
+                {
+                    vertexGroups.Remove(key);
+                }
+            }
+        }
         currentVertexGroup = groupName;
     }
 

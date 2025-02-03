@@ -43,7 +43,7 @@ public class Piece : MonoBehaviour
             neighborProperties[i / 2] = nstate;
         }
         
-        tileBuilder.Ground(ref meshBuilder);
+        tileBuilder.Ground(ref meshBuilder, state == 3);
         switch (state)
         {
             case 1:
@@ -51,33 +51,15 @@ public class Piece : MonoBehaviour
                 break;
             case 2:
                 // house
-                uint tileSeed = (uint) Mathf.RoundToInt(tile.Id.magnitude * Vector2.Angle(tile.Id, Vector2.left));
-                tileBuilder.House(ref meshBuilder, tileSeed * (tileSeed + 100) * (tileSeed + 300));
+                uint tileID = (uint) Mathf.RoundToInt(tile.Id.magnitude * Vector2.Angle(tile.Id, Vector2.left));
+                uint tileSeed = tileID * (tileID + 100) * (tileID + 300);
+                tileBuilder.House(ref meshBuilder, tileSeed);
                 break;
             case 3:
+                tileBuilder.Market(ref meshBuilder, in neighborProperties);
                 // path and house
                 break;
         }
         meshBuilder.Build(ref mesh);
-    }
-
-    private void OnDrawGizmos() {
-        GridTile _tile = GetComponent<GridTile>();
-        bool draw = true;
-        if (_tile.GetProperty(MyTile.Path) && _tile.GetProperty(MyTile.House)) {
-            Gizmos.color = Color.black;
-        } else if (_tile.GetProperty(MyTile.Path)) {
-            draw = false;
-            // Gizmos.color = Color.cyan;
-            // Gizmos.DrawSphere(new(0f, 0, 0f), 0.15f);
-        } else if (_tile.GetProperty(MyTile.House)) {
-            draw = false;
-            // Gizmos.color = Color.blue;
-        } else {
-            draw = false;
-            // Gizmos.color = Color.green;
-        }
-        
-        if (draw) Gizmos.DrawCube(transform.position, new Vector3(1, 0.1f, 1));
     }
 }

@@ -172,10 +172,10 @@ public partial class TileBuilder
 
             Vector3 normalInner = Vector3.Cross(-tangentInner, binormalInner);
 
-            int a = builder.AddVertex(bottomLeftInner, normalInner, new(0, 0));
-            int b = builder.AddVertex(topLeftInner, normalInner, new(0, 1));
-            int c = builder.AddVertex(topRightInner, normalInner, new(1, 1));
-            int d = builder.AddVertex(bottomRightInner, normalInner, new(1, 0));
+            int a = builder.AddVertex(bottomLeftInner, normalInner, new(0, 0), 0.02f);
+            int b = builder.AddVertex(topLeftInner, normalInner, new(0, 1), 0.02f);
+            int c = builder.AddVertex(topRightInner, normalInner, new(1, 1), 0.02f);
+            int d = builder.AddVertex(bottomRightInner, normalInner, new(1, 0), 0.02f);
 
             builder.AddQuad(a, b, c, d);
 
@@ -189,17 +189,17 @@ public partial class TileBuilder
 
             Vector3 normalOuter = Vector3.Cross(tangentOuter, binormalOuter);
 
-            int e = builder.AddVertex(bottomRightOuter, normalOuter, new(0, 0));
-            int f = builder.AddVertex(topRightOuter, normalOuter, new(0, 1));
-            int g = builder.AddVertex(topLeftOuter, normalOuter, new(1, 1));
-            int h = builder.AddVertex(bottomLeftOuter, normalOuter, new(1, 0));
+            int e = builder.AddVertex(bottomRightOuter, normalOuter, new(0, 0), 0.02f);
+            int f = builder.AddVertex(topRightOuter, normalOuter, new(0, 1), 0.02f);
+            int g = builder.AddVertex(topLeftOuter, normalOuter, new(1, 1), 0.02f);
+            int h = builder.AddVertex(bottomLeftOuter, normalOuter, new(1, 0), 0.02f);
 
             builder.AddQuad(e, f, g, h);
 
-            int ii = builder.AddVertex(topRightInner, new(0, 1, 0), new(0, 0));
-            int j = builder.AddVertex(topLeftInner, new(0, 1, 0), new(0, 1));
-            int k = builder.AddVertex(topLeftOuter, new(0, 1, 0), new(1, 1));
-            int l = builder.AddVertex(topRightOuter, new(0, 1, 0), new(1, 0));
+            int ii = builder.AddVertex(topRightInner, new(0, 1, 0), new(0, 0), 0.02f);
+            int j = builder.AddVertex(topLeftInner, new(0, 1, 0), new(0, 1), 0.02f);
+            int k = builder.AddVertex(topLeftOuter, new(0, 1, 0), new(1, 1), 0.02f);
+            int l = builder.AddVertex(topRightOuter, new(0, 1, 0), new(1, 0), 0.02f);
 
             builder.AddQuad(ii, j, k, l);
 
@@ -208,9 +208,9 @@ public partial class TileBuilder
                 Matrix4x4.Scale(new(0.25f, 0.25f, 1))
                 ;
 
-            int m = builder.AddVertex(new(0, 0.0001f, 0), new(0, 1, 0), new(0, 0));
-            int n = builder.AddVertex(bottomLeftOuter, new(0, 1, 0), new(0, 1));
-            int o = builder.AddVertex(bottomRightOuter, new(0, 1, 0), new(1, 1));
+            int m = builder.AddVertex(new(0, 0.0001f, 0), new(0, 1, 0), new(0, 0), 0.02f);
+            int n = builder.AddVertex(bottomLeftOuter, new(0, 1, 0), new(0, 1), 0.02f);
+            int o = builder.AddVertex(bottomRightOuter, new(0, 1, 0), new(1, 1), 0.02f);
 
             builder.AddTriangle(m, n, o);
         }
@@ -228,10 +228,15 @@ public partial class TileBuilder
             Matrix4x4.Translate(new(rect.x, 0.0001f, rect.y)) *
             Matrix4x4.Scale(new(rect.width, 1f, rect.height))
             ;
-        Quad floor = Square1x1(ref builder);
+        Quad floor = Square1x1(ref builder, 0.02f);
         builder.AddQuad(floor);
 
         // walls
+        builder.TextureMatrix =
+            Matrix4x4.Translate(new(0f, 0.25f, 0f)) *
+            Matrix4x4.Scale(new(0.25f, 0.25f, 1))
+            ;
+        
         for (int i = 0; i < (halfFloor ? 1 : 2); i++)
         {
             builder.VertexMatrix =
@@ -263,22 +268,22 @@ public partial class TileBuilder
 
             Vector3 normalOuter = Vector3.Cross(-tangentOuter, binormalOuter);
 
-            int a = builder.AddVertex(bottomLeftInner, normalInner, new(0, 0));
-            int b = builder.AddVertex(topLeftInner, normalInner, new(0, 1));
-            int c = builder.AddVertex(topRightInner, normalInner, new(1, 1));
-            int d = builder.AddVertex(bottomRightInner, normalInner, new(1, 0));
+            int a = builder.AddVertex(bottomLeftInner, normalInner, new(0, 0), 0.02f);
+            int b = builder.AddVertex(topLeftInner, normalInner, new(0, 1), 0.02f);
+            int c = builder.AddVertex(topRightInner, normalInner, new(1, 1), 0.02f);
+            int d = builder.AddVertex(bottomRightInner, normalInner, new(1, 0), 0.02f);
             builder.AddQuad(d, c, b, a);
 
-            int e = builder.AddVertex(bottomRightOuter, normalOuter, new(1, 0));
-            int f = builder.AddVertex(topRightOuter, normalOuter, new(1, 1));
-            int g = builder.AddVertex(topLeftOuter, normalOuter, new(0, 1));
-            int h = builder.AddVertex(bottomLeftOuter, normalOuter, new(0, 0));
+            int e = builder.AddVertex(bottomRightOuter, normalOuter, new(1, 0), 0.02f);
+            int f = builder.AddVertex(topRightOuter, normalOuter, new(1, 1), 0.02f);
+            int g = builder.AddVertex(topLeftOuter, normalOuter, new(0, 1), 0.02f);
+            int h = builder.AddVertex(bottomLeftOuter, normalOuter, new(0, 0), 0.02f);
             builder.AddQuad(h, g, f, e);
 
-            int ii = builder.AddVertex(topLeftInner, Vector3.up, new(1, 0));
-            int j = builder.AddVertex(topLeftOuter, Vector3.up, new(1, 1));
-            int k = builder.AddVertex(topRightOuter, Vector3.up, new(0, 1));
-            int l = builder.AddVertex(topRightInner, Vector3.up, new(0, 0));
+            int ii = builder.AddVertex(topLeftInner, Vector3.up, new(1, 0), 0.02f);
+            int j = builder.AddVertex(topLeftOuter, Vector3.up, new(1, 1), 0.02f);
+            int k = builder.AddVertex(topRightOuter, Vector3.up, new(0, 1), 0.02f);
+            int l = builder.AddVertex(topRightInner, Vector3.up, new(0, 0), 0.02f);
             builder.AddQuad(l, k, j, ii);
 
         }
@@ -296,10 +301,15 @@ public partial class TileBuilder
             Matrix4x4.Translate(new(rect.x, 0.0001f, rect.y)) *
             Matrix4x4.Scale(new(rect.width, 1f, rect.height))
             ;
-        Quad floor = Square1x1(ref builder);
+        Quad floor = Square1x1(ref builder, 0.02f);
         builder.AddQuad(floor);
         
         // Wall
+        builder.TextureMatrix =
+            Matrix4x4.Translate(new(0f, 0.25f, 0f)) *
+            Matrix4x4.Scale(new(0.25f, 0.25f, 1))
+            ;
+        
         builder.VertexMatrix = Matrix4x4.Rotate(Quaternion.AngleAxis(-90 * direction, Vector3.up));
         
         Vector3 bottomLeft = new(0.15f, 0f, rect.height);
@@ -311,23 +321,20 @@ public partial class TileBuilder
         Vector3 binormal = (topRight - bottomRight).normalized;
 
         Vector3 normal = Vector3.Cross(-tangent, binormal);
-
-        int a = builder.AddVertex(bottomLeft, normal, new(0, 0));
-        int b = builder.AddVertex(topLeft, normal, new(0, 1));
-        int c = builder.AddVertex(topRight, normal, new(1, 1));
-        int d = builder.AddVertex(bottomRight, normal, new(1, 0));
-    
+        
+        int a = builder.AddVertex(bottomLeft, normal, new(0, 0), 0.02f);
+        int b = builder.AddVertex(topLeft, normal, new(0, 1), 0.02f);
+        int c = builder.AddVertex(topRight, normal, new(1, 1), 0.02f);
+        int d = builder.AddVertex(bottomRight, normal, new(1, 0), 0.02f);
         builder.AddQuad(a, b, c, d);
 
-        int e = builder.AddVertex(topLeft, Vector3.up, new(0, 0));
-        int f = builder.AddVertex(new(rect.width, 0.01f, rect.height), Vector3.up, new(0, 1));
-        int g = builder.AddVertex(topRight, Vector3.up, new(1, 0));
+        int e = builder.AddVertex(topLeft, Vector3.up, new(0, 0), 0.02f);
+        int f = builder.AddVertex(new(rect.width, 0.01f, rect.height), Vector3.up, new(0, 1), 0.02f);
+        int g = builder.AddVertex(topRight, Vector3.up, new(1, 0), 0.02f);
         
         builder.AddTriangle(e, f, g);
 
     }
-    
-    
 
     private static List<int> Connections(bool[] paths)
     {
