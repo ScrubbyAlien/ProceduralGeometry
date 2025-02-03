@@ -80,6 +80,9 @@ public int AddVertex(Vector3 position, Vector3 normal, Vector2 uv, float tweak =
     }
 
     public void Build(ref Mesh mesh) {
+        
+        mesh.RecalculateTangents(); // kanske????
+        
         mesh.Clear();
         mesh.SetVertices(vertices);
         mesh.SetNormals(normals);

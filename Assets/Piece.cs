@@ -60,6 +60,7 @@ public class Piece : MonoBehaviour
                 // path and house
                 break;
         }
+        
         meshBuilder.Build(ref mesh);
     }
 }

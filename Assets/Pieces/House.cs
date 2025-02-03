@@ -58,7 +58,7 @@ public partial class TileBuilder
                 Matrix4x4.Rotate(Quaternion.AngleAxis(90, Vector3.left));
             builder.TextureMatrix = 
                 Matrix4x4.Translate(new(0.5f, 0.5f, 0f)) *
-                Matrix4x4.Scale(new(0.5f, 0.25f, 1f))
+                Matrix4x4.Scale(new(0.25f, 0.25f, 1f))
                 ;
             int a = builder.AddVertex(new(0, 0, 0), new(0, 1, 0), new(0, 0));
             int b = builder.AddVertex(new(0.5f, 0, 0.5f), new(0, 1, 0), new(0.5f, 1f));

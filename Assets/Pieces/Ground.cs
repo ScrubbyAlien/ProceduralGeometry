@@ -10,7 +10,7 @@ public partial class TileBuilder
         if (stone)
         {
             builder.TextureMatrix = 
-                Matrix4x4.Translate(new(0.75f, 0.25f)) *
+                Matrix4x4.Translate(new(0.75f, 0.5f)) *
                 Matrix4x4.Scale(new(0.25f, 0.25f))
                 ;
         }
