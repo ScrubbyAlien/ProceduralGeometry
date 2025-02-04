@@ -80,14 +80,14 @@ public int AddVertex(Vector3 position, Vector3 normal, Vector2 uv, float tweak =
     }
 
     public void Build(ref Mesh mesh) {
-        
-        mesh.RecalculateTangents(); // kanske????
-        
+
         mesh.Clear();
         mesh.SetVertices(vertices);
         mesh.SetNormals(normals);
         mesh.SetUVs(0, uvs);
         mesh.SetIndices(triangles, MeshTopology.Triangles, 0);
+        mesh.RecalculateTangents();
+        
         mesh.MarkModified();
     }
 

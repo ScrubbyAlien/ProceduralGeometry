@@ -43,12 +43,12 @@ public partial class TileBuilder
             Matrix4x4.Translate(position) *
             Matrix4x4.Rotate(Quaternion.AngleAxis(rotation, Vector3.down));
         builder.TextureMatrix =
-            Matrix4x4.Translate(new(0.5f, 0.625f)) *
+            Matrix4x4.Translate(new(0f, 0.875f)) *
             Matrix4x4.Scale(new(0.25f, 0.125f));
         
         int a = builder.AddVertex(new(-0.15f, 0f, -0.075f), Vector3.back, new(0, 0));
-        int b = builder.AddVertex(new(-0.15f, 0.05f, -0.075f), Vector3.back, new(0, 1));
-        int c = builder.AddVertex(new(0.15f, 0.05f, -0.075f), Vector3.back, new(1, 1));
+        int b = builder.AddVertex(new(-0.15f, 0.05f, -0.075f), Vector3.back, new(0, 0.33f));
+        int c = builder.AddVertex(new(0.15f, 0.05f, -0.075f), Vector3.back, new(1, 0.33f));
         int d = builder.AddVertex(new(0.15f, 0f, -0.075f), Vector3.back, new(1, 0));
         
         builder.AddDualFacedQuad(a, b, c, d);
@@ -56,8 +56,8 @@ public partial class TileBuilder
         
         // top board
         int e = builder.AddVertex(new(-0.15f, 0.05f, -0.075f), Vector3.up, new(0, 0));
-        int f = builder.AddVertex(new(-0.15f, 0.05f, -0.01f), Vector3.up, new(0, 1));
-        int g = builder.AddVertex(new(0.15f, 0.05f, -0.01f), Vector3.up, new(1, 1));
+        int f = builder.AddVertex(new(-0.15f, 0.05f, -0.01f), Vector3.up, new(0, 0.43f));
+        int g = builder.AddVertex(new(0.15f, 0.05f, -0.01f), Vector3.up, new(1, 0.43f));
         int h = builder.AddVertex(new(0.15f, 0.05f, -0.075f), Vector3.up, new(1, 0));
 
         builder.AddDualFacedQuad(e, f, g, h);
@@ -66,8 +66,8 @@ public partial class TileBuilder
         for (int i = -1; i < 2; i += 2)
         {
             int ii = builder.AddVertex(new(-0.15f * i, 0f, 0.075f), Vector3.left, new(0, 0));
-            int j = builder.AddVertex(new(-0.15f * i, 0.05f, 0.075f), Vector3.left, new(0, 1));
-            int k = builder.AddVertex(new(-0.15f * i, 0.05f, -0.075f), Vector3.left, new(1, 1));
+            int j = builder.AddVertex(new(-0.15f * i, 0.05f, 0.075f), Vector3.left, new(0, 0.66f));
+            int k = builder.AddVertex(new(-0.15f * i, 0.05f, -0.075f), Vector3.left, new(1, 0.66f));
             int l = builder.AddVertex(new(-0.15f * i, 0f, -0.075f), Vector3.left, new(1, 0));
             builder.AddDualFacedQuad(ii, j, k, l);
         }
@@ -75,7 +75,7 @@ public partial class TileBuilder
         
         // awning
         builder.TextureMatrix = 
-            Matrix4x4.Translate(new(0.5f, 0.25f)) *
+            Matrix4x4.Translate(new(0.5f, 0.5f)) *
             Matrix4x4.Scale(new(0.25f, 0.25f));
         
         Vector3 awningBL = new(-0.18f, 0.13f, 0.1f);
@@ -89,14 +89,14 @@ public partial class TileBuilder
 
 
         int m = builder.AddVertex(awningBL, normal, new(0, 0));
-        int n = builder.AddVertex(awningTL, normal, new(0, 1));
-        int o = builder.AddVertex(awningTR, normal, new(1, 1));
+        int n = builder.AddVertex(awningTL, normal, new(0, 0.566f));
+        int o = builder.AddVertex(awningTR, normal, new(1, 0.566f));
         int p = builder.AddVertex(awningBR, normal, new(1, 0));
 
         builder.AddDualFacedQuad(m, n, o, p);
         
         builder.TextureMatrix =
-            Matrix4x4.Translate(new(0.5f, 0.625f)) *
+            Matrix4x4.Translate(new(0f, 0.875f)) *
             Matrix4x4.Scale(new(0.25f, 0.125f));
         
         Pole(ref builder, new(-0.15f, 0, -0.075f), 0.164f);
@@ -116,8 +116,8 @@ public partial class TileBuilder
             builder.VertexMatrix = Matrix4x4.Rotate(Quaternion.AngleAxis(-90 * i, Vector3.up));
             int a = builder.AddVertex(new(-0.003f, 0f, -0.003f), Vector3.back, new(0, 0));
             int b = builder.AddVertex(new(-0.003f, height, -0.003f), Vector3.back, new(0, 1));
-            int c = builder.AddVertex(new(0.003f, height, -0.003f), Vector3.back, new(1, 1));
-            int d = builder.AddVertex(new(0.003f, 0f, -0.003f), Vector3.back, new(1, 0));
+            int c = builder.AddVertex(new(0.003f, height, -0.003f), Vector3.back, new(0.006f / height, 1));
+            int d = builder.AddVertex(new(0.003f, 0f, -0.003f), Vector3.back, new(0.006f / height, 0));
             builder.AddQuad(a, b, c, d);
         }
         builder.CloseVertexGroup();

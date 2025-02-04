@@ -38,15 +38,15 @@ public partial class TileBuilder
         {
             builder.VertexMatrix = 
                 Matrix4x4.Rotate(Quaternion.AngleAxis(i * 180, Vector3.up)) *
-                Matrix4x4.Translate(new(-0.25f, 0.2f, -0.25f)) *
+                Matrix4x4.Translate(new(0f, 0.45f, -0.25f)) *
                 Matrix4x4.Rotate(Quaternion.AngleAxis(45, Vector3.forward)) *
-                Matrix4x4.Scale(new(0.25f * Mathf.Sqrt(2), 1, 0.5f));
-            builder.TextureMatrix = 
-                Matrix4x4.Translate(new(0.25f, 0.5f, 0f)) *
-                Matrix4x4.Scale(new(0.25f, 0.25f, 1f)) *
-                Matrix4x4.Rotate(Quaternion.AngleAxis(90, new(0, 0, 1f)))
+                Matrix4x4.Rotate(Quaternion.AngleAxis(90, Vector3.down)) *
+                Matrix4x4.Scale(new(0.5f, 1, 0.25f * Mathf.Sqrt(2)));
+            builder.TextureMatrix =
+                Matrix4x4.Translate(new(0f, 0.5f, 0f)) *
+                Matrix4x4.Scale(new(0.25f, 0.25f, 1f));
                 ;
-            Quad roof = Square1x1(ref builder);
+            Quad roof = Square1x1(ref builder, Mathf.Sqrt(2));
             builder.AddQuad(roof, false);
 
             
@@ -57,11 +57,11 @@ public partial class TileBuilder
                 Matrix4x4.Scale(new(0.5f, 0.5f, 1f)) *
                 Matrix4x4.Rotate(Quaternion.AngleAxis(90, Vector3.left));
             builder.TextureMatrix = 
-                Matrix4x4.Translate(new(0.5f, 0.5f, 0f)) *
+                Matrix4x4.Translate(new(0f, 0.75f, 0f)) *
                 Matrix4x4.Scale(new(0.25f, 0.25f, 1f))
                 ;
             int a = builder.AddVertex(new(0, 0, 0), new(0, 1, 0), new(0, 0));
-            int b = builder.AddVertex(new(0.5f, 0, 0.5f), new(0, 1, 0), new(0.5f, 1f));
+            int b = builder.AddVertex(new(0.5f, 0, 0.5f), new(0, 1, 0), new(0.5f, 0.5f));
             int c = builder.AddVertex(new(1, 0, 0), new(0, 1, 0), new(1, 0));
             builder.AddTriangle(a, b, c);
 

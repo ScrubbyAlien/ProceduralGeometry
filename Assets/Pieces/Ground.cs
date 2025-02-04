@@ -21,7 +21,7 @@ public partial class TileBuilder
                 Matrix4x4.Scale(new(0.25f, 0.25f, 1f))
                 ;
         }
-        Quad ground = Square1x1(ref builder, 0.02f);
+        Quad ground = Square1x1(ref builder, 1, 0.01f);
         builder.AddQuad(ground, false);
     }
 }
